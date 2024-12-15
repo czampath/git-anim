@@ -1,8 +1,7 @@
 const express = require('express');
 const axios = require('axios');
-
 const app = express();
-const PORT = 3000;
+
 
 // Commit data URL
 const DATA_URL = 'https://snk-one.vercel.app/api/github-user-contribution/';
@@ -42,7 +41,7 @@ const generateSVG = (commitData, duration = 1, isDark) => {
 };
 
 // Route to serve the animated SVG
-app.get('/animated-commits', async (req, res) => {
+app.get('/api/animated-commits', async (req, res) => {
   try {
     const username = req.query.username;
 
@@ -71,7 +70,4 @@ app.get('/animated-commits', async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+module.exports = app;
