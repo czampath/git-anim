@@ -14,6 +14,7 @@ window.onload = function () {
     const durationInput = document.getElementById('duration');
     let prevDurationInput = durationInput.value;
     const copyUrlButton = document.getElementById('copy-url');
+    const downloadButton = document.getElementById('download');
 
     const loadingIndicator = document.createElement('div'); // Add a loading indicator
     loadingIndicator.innerText = "Loading...";
@@ -122,5 +123,32 @@ window.onload = function () {
         }).catch(err => {
             console.error('Failed to copy URL: ', err);
         });
+    });
+
+    downloadButton.addEventListener('click', function () {
+        const url = svgURL.getAttribute('value');
+        if(!url){
+            return
+        }
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the SVG');
+                }
+                return response.text(); 
+            })
+            .then(svgContent => {
+                const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+                const link = document.createElement('a');
+
+                link.href = URL.createObjectURL(blob);
+                link.download = 'image.svg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading SVG:', error);
+            });
     });
 }
