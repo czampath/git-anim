@@ -1,15 +1,70 @@
 <!DOCTYPE html>
-<html>
-<body style="background-color: dimgrey;">
+<html lang="en">
 
-<h1>My first SVG</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek SVG Tester</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="index.js"></script>
+</head>
 
-<div style="width: 100vw;">
-    <svg style="width: 100%;">       
-        <image style="width: 100%; height: 100%; object-fit: cover;" xlink:href="http://localhost:3000/animated-commits?username=czampath&isDark=true&duration=4&style=sds" src="yourfallback.png" />    
-    </svg>
-</div>
-
-
+<body>
+    <header>
+        <h1>Build Your GitHub SVG</h1>
+    </header>
+    <main>
+        <div class="svg-container">
+            <svg>
+                <!-- SVG dynamically updates based on dark/light mode -->
+                <image id="svg-image" style="width: 100%; height: 100%; object-fit: cover;"
+                    xlink:href="http://localhost:3000/api/animated-commits?username=czampath&isDark=true&style=hue-ripple"
+                    src="yourfallback.png" />
+            </svg>
+        </div>
+        <div class="input-container">
+            <div>
+                <input type="text" id="username" placeholder="GitHub Username">
+                <input type="button" id="submit" value="Submit">
+            </div>
+            <div>
+                <select id="style">
+                    <option value="default">Default</option>
+                    <option value="blur-ripple">Blur Ripple</option>
+                    <option value="hue-ripple" selected>Hue Ripple</option>
+                    <option value="scale-ripple">Scale Ripple</option>
+                    <option value="rotate">Rotate</option>
+                    <option value="fall">Fall</option>
+                    <option value="fall-invert">Fall Invert</option>
+                </select>
+            </div>
+            <div>
+                <input type="text" id="duration" placeholder="Animation Duration (s)">
+            </div>
+            <div>
+                <input type="text" id="gen-url" placeholder="Generated URL" readonly>
+                <input style="width: 8rem;" type="button" id="copy-url" value="Copy URL" disabled>
+            </div>
+            <div>
+                <!-- Dark/Light mode toggle -->
+                <label for="theme-switch" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <span>Dark Mode</span>
+                    <div
+                        style="position: relative; width: 50px; height: 25px; background: #495057; border-radius: 25px;">
+                        <div id="toggle-thumb"
+                            style="position: absolute; top: 2px; left: 2px; width: 21px; height: 21px; background: #343a40; border-radius: 50%; transition: 0.3s;">
+                        </div>
+                    </div>
+                    <input type="checkbox" id="theme-switch"
+                        style="opacity: 0; width: 0; height: 0; position: absolute;" checked>
+                </label>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p style="font-family: 'Roboto', sans-serif;">&copy; 2024 SVG Tester. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
