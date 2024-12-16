@@ -27,7 +27,7 @@ const STYLES = [
   },
   {
     name: "scale-ripple",
-    isInverted : false,
+    isInverted: false,
     styles: "",
     keyframes: `@keyframes pop {
   0% { opacity: .8; transform: scale(1); }
@@ -37,7 +37,7 @@ const STYLES = [
   },
   {
     name: "rotate",
-    isInverted : false,
+    isInverted: false,
     styles: "",
     keyframes: `@keyframes pop {
   0% { opacity: .8; transform: rotate(0deg); }
@@ -46,7 +46,7 @@ const STYLES = [
   },
   {
     name: "fall",
-    isInverted : false,
+    isInverted: false,
     styles: "",
     keyframes: `@keyframes pop {
   20% { opacity: 1; transform: translateY(0px) }
@@ -58,7 +58,7 @@ const STYLES = [
   },
   {
     name: "fall-invert",
-    isInverted : true,
+    isInverted: true,
     styles: "",
     keyframes: `@keyframes pop {
   20% { opacity: 1; transform: translateY(0px) }
@@ -71,12 +71,12 @@ const STYLES = [
 ];
 
 const resolveStyle = (style) => {
-  const keyframe = STYLES.find(st=> st.name==style) ?? STYLES.find(st=> st.name=="blur-ripple");
+  const keyframe = STYLES.find(st => st.name == style) ?? STYLES.find(st => st.name == "blur-ripple");
   return keyframe;
 }
 
-const resolveRectStyles = (style,duration, delay,commit) =>{
-  if(style.isInverted){
+const resolveRectStyles = (style, duration, delay, commit) => {
+  if (style.isInverted) {
     return commit.level == 0 ? `animation: pop ${duration}s ${delay}s infinite;` : ""
   }
   return commit.level == 0 ? "" : `animation: pop ${duration}s ${delay}s infinite;`
@@ -87,19 +87,23 @@ const generateSVG = (commitData, styleStr = "hue-ripple", duration = 1, isDark) 
 
   const squares = commitData.map(
     (commit, index) => {
-      const delay = (index * 0.005).toFixed(1); 
-      const emptyBlockColor = isDark == true ? "hsl(0, 0.00%, 23.90%)" : "hsl(120, 1.80%, 80.00%)";
-      const cellColor = commit.level == 0 ? emptyBlockColor :  `hsl(130, 70%, ${(commit.level * 10) + 10}%)`;
+      const delay = (index * 0.005).toFixed(1);
+      const emptyBlockColor = isDark == true ? "hsl(215, 21%, 11%)" : "hsl(120, 1.80%, 80.00%)";
+      const cellColor = commit.level == 0 ? emptyBlockColor : `hsl(130, 70%, ${(commit.level * 10) + 10}%)`;
 
-      const animationClass = resolveRectStyles(style,duration,delay,commit);
+      const animationClass = resolveRectStyles(style, duration, delay, commit);
       const sizeFactor = 1.7
       return `
         <rect
-          x="${(commit.x * 12) * sizeFactor}" y="${(commit.y * 12) * sizeFactor}"
-          width="${10 * sizeFactor}" height="${10 * sizeFactor}"
+          x="${(commit.x * 12) * sizeFactor}" 
+          y="${(commit.y * 12) * sizeFactor}"
+          width="${10 * sizeFactor}" 
+          height="${10 * sizeFactor}"
           fill="${cellColor}"
           opacity="1"
           style="${animationClass}"
+          rx="4" 
+          ry="4"
         />`;
     }
   );
@@ -123,21 +127,21 @@ app.get('/api/animated-commits', async (req, res) => {
   try {
     const username = req.query.username;
 
-    if(!username){
-      return res.status(400).send('Username is required'); 
+    if (!username) {
+      return res.status(400).send('Username is required');
     }
 
     const style = req.query.style;
-    if(!style){
-      return res.status(400).send('Style is required'); 
+    if (!style) {
+      return res.status(400).send('Style is required');
     }
 
     const isDark = req.query.isDark && JSON.parse(req.query.isDark.toLowerCase()) || false;
     const duration = req.query.duration || 2;
 
-    const { data: commitData } = await axios.get(DATA_URL+username);
+    const { data: commitData } = await axios.get(DATA_URL + username);
     // Generate the SVG content
-    const svg = generateSVG(commitData,style,duration,isDark);
+    const svg = generateSVG(commitData, style, duration, isDark);
 
     // Set the content type to SVG
     res.set('Content-Type', 'image/svg+xml');

@@ -13,18 +13,18 @@ window.onload = function () {
     const loadingIndicator = document.createElement('div'); // Add a loading indicator
     loadingIndicator.innerText = "Loading...";
     loadingIndicator.style.cssText = `
-    display: none;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-color: white;
-font-size: 1.2rem;
-text-align: center;
-background-color: rgba(0, 0, 0, 0.7);
-padding: 10px 20px;
-border-radius: 5px;
-`;
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        border-radius: 5px;
+    `;
     document.body.appendChild(loadingIndicator);
 
     // Initialize theme to dark mode by default
