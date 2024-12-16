@@ -1,6 +1,7 @@
 {
   "name": "git-anim",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "api/animated-commits.js",
   "scripts": {

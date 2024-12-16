@@ -1,16 +1,13 @@
-const express = require('express');
-const axios = require('axios');
-const app = express();
-
+import express from 'express';
+import axios from 'axios/dist/node/axios.cjs';  // You can keep this as is since it's ESM-compatible
 import { STYLES } from '../styles';
+
+const app = express();
 
 // Commit data URL
 const DATA_URL = 'https://snk-one.vercel.app/api/github-user-contribution/';
 
-
-
 const resolveStyle = (style) => {
-
   const keyframe = STYLES.find(st => st.id == style) ?? STYLES[0];
   return keyframe;
 }
