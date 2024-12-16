@@ -2,76 +2,16 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
+import { STYLES } from '../styles';
 
 // Commit data URL
 const DATA_URL = 'https://snk-one.vercel.app/api/github-user-contribution/';
 
-const STYLES = [
-  {
-    name: "hue-ripple",
-    styles: "",
-    keyframes: `@keyframes pop {
-  0% { opacity: .8; filter: hue-rotate(0deg); }
-  50% { opacity: 1; filter: hue-rotate(180deg); }
-  100% { opacity: .8; filter: hue-rotate(360deg); }
-}`
-  },
-  {
-    name: "blur-ripple",
-    styles: "",
-    keyframes: `@keyframes pop {
-  0% { opacity: .8; filter: blur(0px) saturate(1) drop-shadow(0px 0px 0px black); }
-  50% { opacity: 1; filter: blur(0px) saturate(0) drop-shadow(1px 2px 2px black); }
-  100% { opacity: .8; filter: blur(0px) saturate(1) drop-shadow(0px 0px 0px black); }
-}`
-  },
-  {
-    name: "scale-ripple",
-    isInverted: false,
-    styles: "",
-    keyframes: `@keyframes pop {
-  0% { opacity: .8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-  100% { opacity: .8; transform: scale(1); }
-}`
-  },
-  {
-    name: "rotate",
-    isInverted: false,
-    styles: "",
-    keyframes: `@keyframes pop {
-  0% { opacity: .8; transform: rotate(0deg); }
-  100% { opacity: 1; transform: rotate(360deg); }
-}`
-  },
-  {
-    name: "fall",
-    isInverted: false,
-    styles: "",
-    keyframes: `@keyframes pop {
-  20% { opacity: 1; transform: translateY(0px) }
-  30% { opacity: 1; transform: translateY(200px)}
-  31% { opacity: 0; transform: translateY(200px)}
-  50% { opacity: 0; transform: translateY(-200px)}
-  90% { opacity: 0; transform: translateY(-200px) }
-}`
-  },
-  {
-    name: "fall-invert",
-    isInverted: true,
-    styles: "",
-    keyframes: `@keyframes pop {
-  20% { opacity: 1; transform: translateY(0px) }
-  30% { opacity: 1; transform: translateY(200px)}
-  31% { opacity: 0; transform: translateY(200px)}
-  50% { opacity: 0; transform: translateY(-200px)}
-  90% { opacity: 0; transform: translateY(-200px) }
-}`
-  },
-];
+
 
 const resolveStyle = (style) => {
-  const keyframe = STYLES.find(st => st.name == style) ?? STYLES.find(st => st.name == "blur-ripple");
+
+  const keyframe = STYLES.find(st => st.id == style) ?? STYLES[0];
   return keyframe;
 }
 

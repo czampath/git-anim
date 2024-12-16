@@ -31,6 +31,7 @@ header {
     font-weight: 700;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     margin-bottom: 50px;
+    margin-top: auto;
 }
 
 main {
@@ -89,7 +90,7 @@ input[type="text"]:focus {
     font-family: 'Roboto', sans-serif;
 }
 
-input[type="button"], select {
+input[type="button"],button, select {
     font-family: 'Roboto', sans-serif;
     padding: 10px;
     font-size: 1rem;
@@ -101,8 +102,16 @@ input[type="button"], select {
     transition: background-color 0.3s ease;
 }
 
-input[type="button"]:hover, select:hover {
-    background-color: #20515e;
+select {
+    border-right: 10px solid transparent
+  }
+
+button{
+    padding: 0 1rem;
+}
+
+input[type="button"]:hover, button:hover {
+    background-color:rgb(46, 76, 131);
 }
 
 select {
@@ -110,7 +119,8 @@ select {
 }
 
 footer {
-    margin-top: 30px;
+    margin-top: auto;
+    margin-bottom: 50px;
     text-align: center;
     color: #adb5bd;
     font-size: 0.9rem;

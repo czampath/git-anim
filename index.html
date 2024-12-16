@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script type="text/javascript" src="index.js"></script>
+    <script type="module">
+        import('./styles.js').then(module => {
+            const styleSelect = document.getElementById('style');
+            module.STYLES.forEach((st)=>{
+                const option = document.createElement('option');
+                option.value = st.id;
+                option.textContent = st.name;
+                styleSelect.appendChild(option)
+            })
+          });
+    </script>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -19,24 +33,19 @@
             <svg>
                 <!-- SVG dynamically updates based on dark/light mode -->
                 <image id="svg-image" style="width: 100%; height: 100%; object-fit: cover;"
-                    xlink:href="http://localhost:3000/api/animated-commits?username=czampath&isDark=true&style=hue-ripple"
+                    xlink:href="/api/animated-commits?username=czampath&isDark=true&style=hue-ripple"
                     src="yourfallback.png" />
             </svg>
         </div>
         <div class="input-container">
             <div>
                 <input type="text" id="username" placeholder="GitHub Username">
-                <input type="button" id="submit" value="Submit">
+                <button id="submit">
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
             </div>
             <div>
                 <select id="style">
-                    <option value="default">Default</option>
-                    <option value="blur-ripple">Blur Ripple</option>
-                    <option value="hue-ripple" selected>Hue Ripple</option>
-                    <option value="scale-ripple">Scale Ripple</option>
-                    <option value="rotate">Rotate</option>
-                    <option value="fall">Fall</option>
-                    <option value="fall-invert">Fall Invert</option>
                 </select>
             </div>
             <div>
@@ -44,7 +53,9 @@
             </div>
             <div>
                 <input type="text" id="gen-url" placeholder="Generated URL" readonly>
-                <input style="width: 8rem;" type="button" id="copy-url" value="Copy URL" disabled>
+                <button id="copy-url" disabled>
+                    <i class="fa fa-clone" aria-hidden="true"></i>
+                </button>
             </div>
             <div>
                 <!-- Dark/Light mode toggle -->
@@ -63,7 +74,7 @@
         </div>
     </main>
     <footer>
-        <p style="font-family: 'Roboto', sans-serif;">&copy; 2024 SVG Tester. All rights reserved.</p>
+        <p style="font-family: 'Roboto', sans-serif;">&copy; 2024 GitHub SVG Build. All rights reserved.</p>
     </footer>
 </body>
 

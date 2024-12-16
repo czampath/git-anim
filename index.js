@@ -1,13 +1,18 @@
 window.onload = function () {
 
+    const base_url = "https://cz-git-anim.vercel.app";
+
     const themeSwitch = document.getElementById('theme-switch');
     const toggleThumb = document.getElementById('toggle-thumb');
     const body = document.body;
     const svgImage = document.getElementById('svg-image');
     const svgURL = document.getElementById('gen-url');
     const usernameInput = document.getElementById('username');
+    let prevUsernameInput = usernameInput.value;
+
     const styleSelect = document.getElementById('style');
     const durationInput = document.getElementById('duration');
+    let prevDurationInput = durationInput.value;
     const copyUrlButton = document.getElementById('copy-url');
 
     const loadingIndicator = document.createElement('div'); // Add a loading indicator
@@ -27,28 +32,46 @@ window.onload = function () {
     `;
     document.body.appendChild(loadingIndicator);
 
-    // Initialize theme to dark mode by default
     let isDark = true;
 
-    // Function to update the SVG URL based on inputs
     const updateSVG = () => {
         const username = usernameInput.value || 'czampath';
         const style = styleSelect.value || 'hue-ripple';
         const duration = durationInput.value || 2;
-        const url = `https://cz-git-anim.vercel.app/api/animated-commits?username=${username}&isDark=${isDark}&style=${style}&duration=${duration}`;
+        const url = `/api/animated-commits?username=${username}&isDark=${isDark}&style=${style}&duration=${duration}`;
 
         // Show loading indicator
         svgImage.style.display = 'none'
         loadingIndicator.style.display = 'block';
 
-        // Update the SVG image and URL field
+
         svgImage.setAttribute('xlink:href', url);
-        svgURL.setAttribute('value', url);
+        svgURL.setAttribute('value', base_url + url);
     };
 
-    // Listen for the SVG `onload` event to hide the loading indicator
+    function handleInputChange(event) {
+        let inputChanged = false;
+
+        if (event.target === usernameInput) {
+            inputChanged = usernameInput.value !== prevUsernameInput;
+            if (inputChanged) {
+                usernameInitialValue = usernameInput.value; 
+            }
+        } else if (event.target === durationInput) {
+            inputChanged = durationInput.value !== prevDurationInput;
+            if (inputChanged) {
+                durationInitialValue = durationInput.value; 
+            }
+        }
+
+        if (inputChanged) {
+            updateSVG();
+        }
+    }
+
+    // Listen for the SVG `onload` event
     svgImage.onload = () => {
-        loadingIndicator.style.display = 'none'; // Hide loading indicator
+        loadingIndicator.style.display = 'none';
         svgImage.style.display = 'flex'
         copyUrlButton.disabled = false;
     };
@@ -59,31 +82,43 @@ window.onload = function () {
     themeSwitch.addEventListener('change', () => {
         isDark = themeSwitch.checked;
         if (isDark) {
-            toggleThumb.style.left = '2px'; // Position for dark mode
+            toggleThumb.style.left = '2px';
             toggleThumb.style.background = '#343a40';
             body.classList.remove('light-mode');
         } else {
-            toggleThumb.style.left = '27px'; // Position for light mode
+            toggleThumb.style.left = '27px'; 
             toggleThumb.style.background = '#f5f5f5';
             body.classList.add('light-mode');
         }
         updateSVG();
     });
 
-    usernameInput.addEventListener('blur', updateSVG);
-    styleSelect.addEventListener('change', updateSVG);
-    durationInput.addEventListener('blur', updateSVG);
+    usernameInput.addEventListener('blur', handleInputChange);
+    durationInput.addEventListener('blur', handleInputChange);
 
-    // Copy URL to clipboard
+    usernameInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            handleInputChange(event); 
+        }
+    });
+
+    durationInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            handleInputChange(event);
+        }
+    });
+
+    styleSelect.addEventListener('change', updateSVG);
+
     copyUrlButton.addEventListener('click', () => {
 
         svgURL.select();
         navigator.clipboard.writeText(svgURL.value).then(() => {
             console.info('URL Copied');
-            copyUrlButton.setAttribute("value", "Copied!");
+            copyUrlButton.setAttribute("style", 'background-color:rgb(94, 116, 89)');
             setTimeout(() => {
-                copyUrlButton.setAttribute("value", "Copy URL");
-            }, 1500)
+                copyUrlButton.setAttribute("style", 'background-color: #495057');
+            }, 1000)
         }).catch(err => {
             console.error('Failed to copy URL: ', err);
         });
