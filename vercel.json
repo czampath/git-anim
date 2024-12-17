@@ -1,6 +1,7 @@
 {
     "version": 2,
     "routes": [
-      { "src": "/api/animated-commits", "dest": "/api/animated-commits.js" }
+      { "src": "/api/animated-commits", "dest": "/api/animated-commits.js" },
+      { "src": "/api/get-styles", "dest": "/api/animated-commits.js" }
     ]
   }

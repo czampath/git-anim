@@ -1,6 +1,7 @@
 import express from 'express';
-import axios from 'axios/dist/node/axios.cjs';  // You can keep this as is since it's ESM-compatible
-import { STYLES } from '../styles';
+const express  = require('express')
+const axios  = require('axios')
+const STYLES = require('../data/styles.js');
 
 const app = express();
 
@@ -86,6 +87,16 @@ app.get('/api/animated-commits', async (req, res) => {
   } catch (error) {
     console.error('Error fetching commit data:', error);
     res.status(500).send('Failed to generate SVG.');
+  }
+});
+
+app.get('/api/get-styles', (req, res) => {
+  try {
+    res.set('Content-Type', 'application/json');
+    res.send(JSON.stringify(STYLES));
+  } catch (error) {
+    console.error('Error fetching style data:', error);
+    res.status(500).send('Failed to get style data.');
   }
 });
 

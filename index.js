@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = async function () {
 
     const base_url = "https://cz-git-anim.vercel.app";
 
@@ -16,7 +16,9 @@ window.onload = function () {
     const copyUrlButton = document.getElementById('copy-url');
     const downloadButton = document.getElementById('download');
 
-    const loadingIndicator = document.createElement('div'); // Add a loading indicator
+
+
+    const loadingIndicator = document.createElement('div');
     loadingIndicator.innerText = "Loading...";
     loadingIndicator.style.cssText = `
         display: none;
@@ -32,6 +34,17 @@ window.onload = function () {
         border-radius: 5px;
     `;
     document.body.appendChild(loadingIndicator);
+
+    loadingIndicator.style.display = 'block';
+    await fetch(base_url+"/api/get-styles").then(data => data.json()).then(data=> {
+        loadingIndicator.style.display = 'none';
+        data.forEach((st) => {
+            const option = document.createElement('option');
+            option.value = st.id;
+            option.textContent = st.name;
+            styleSelect.appendChild(option);
+        });
+    });
 
     let isDark = true;
 

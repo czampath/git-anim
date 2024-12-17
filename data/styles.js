@@ -4,8 +4,7 @@
  * 
  * styles: To Be used, if a style needs additional css styles
  */
-
-export const STYLES = [
+const STYLES = [
     {
         name: "Hue Ripple",
         id: "hue-ripple",
@@ -91,3 +90,4 @@ export const STYLES = [
     },
 ];
 
+module.exports = STYLES;
