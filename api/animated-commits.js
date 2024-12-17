@@ -1,11 +1,9 @@
-import express from 'express';
 const express  = require('express')
 const axios  = require('axios')
 const STYLES = require('../data/styles.js');
 
 const app = express();
 
-// Commit data URL
 const DATA_URL = 'https://snk-one.vercel.app/api/github-user-contribution/';
 
 const resolveStyle = (style) => {
