@@ -4,7 +4,7 @@ const STYLES = require('../data/styles.js');
 
 const app = express();
 
-const DATA_URL = 'https://snk-one.vercel.app/api/github-user-contribution/';
+const DATA_URL = 'https://github-user-contribution.platane.workers.dev/github-user-contribution/';
 
 const resolveStyle = (style) => {
   const keyframe = STYLES.find(st => st.id == style) ?? STYLES[0];
