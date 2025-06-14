@@ -51,6 +51,7 @@ window.onload = async function () {
     const updateSVG = () => {
         const username = usernameInput.value || 'czampath';
         const style = styleSelect.value || 'hue-ripple';
+        if( (style=="fall-invert" || style=="fall" ) && durationInput.value <10) durationInput.value = 10
         const duration = durationInput.value || 2;
         const url = `/api/animated-commits?username=${username}&isDark=${isDark}&style=${style}&duration=${duration}`;
 
