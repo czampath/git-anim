@@ -21,7 +21,9 @@ const resolveRectStyles = (style, duration, delay, commit) => {
 const generateSVG = (commitData, styleStr = "hue-ripple", duration = 1, isDark) => {
   const style = resolveStyle(styleStr);
 
-  const squares = commitData.map(
+  const shuffled = [...commitData].sort(() => 0.5 - Math.random());
+
+  const squares = shuffled.map(
     (commit, index) => {
       const delay = (index * 0.005).toFixed(1);
       const emptyBlockColor = isDark == true ? "hsl(215, 21%, 11%)" : "hsl(120, 1.80%, 80.00%)";
