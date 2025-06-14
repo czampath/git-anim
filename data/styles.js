@@ -34,7 +34,7 @@ const STYLES = [
         styles: "",
         keyframes: `@keyframes pop {
             0% { opacity: .8; filter: blur(0px)   }
-            50% { opacity: 1; filter: blur(3px)   }
+            50% { opacity: 1; filter: blur(2px)   }
             100% { opacity: .8; filter: blur(0px)   }
         }`
     },
@@ -80,12 +80,30 @@ const STYLES = [
         isInverted: true,
         styles: "",
         keyframes: `@keyframes pop {
+            5% { filter: grayscale(0%); fill: unset; }
             10% { filter: drop-shadow(0px 0px 0px black); }
+            15% { filter: grayscale(100%); fill: rgb(50,50,50); }
             20% { opacity: 1; transform: translateY(0px) rotate(0deg); filter: drop-shadow(1px 1px 10px black); }
             30% { opacity: 1; transform: translateY(200px) rotate(120deg); filter: drop-shadow(1px 1px 10px black);}
             31% { opacity: 0; transform: translateY(200px) rotate(120deg);; filter: drop-shadow(1px 1px 10px black);}
             50% { opacity: 0; transform: translateY(-200px) rotate(0deg); filter: drop-shadow(0px 0px 0px black);}
             90% { opacity: 0; transform: translateY(-200px) rotate(0deg); filter: drop-shadow(0px 0px 0px black); }
+        }`
+    },
+    {
+        name: "Pop",
+        id: "pop",
+        isInverted: false,
+        styles: "",
+        keyframes: `@keyframes pop {
+            0% { opacity: .8; transform: scale(1); }
+            5% { opacity: 1; transform: scale(1.1); }
+            10% { opacity: 0; transform: scale(0); }
+            45% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            55% { opacity: 0; transform: scale(0); }
+            90% { opacity: 0; transform: scale(0); }
+            95% { opacity: 1; transform: scale(1); }
         }`
     },
 ];
